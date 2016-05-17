@@ -11,6 +11,10 @@ public class Constant {
 
 	public static String TOMCAT_SERVICE_ADDRESS;
 	
+	public static final String SUCCESS = "0";
+	
+	public static final String FAIL = "1";
+	
 	// 以下从配置文件取
 	public static String DATA_LOGO_SAVE_PATH_VALUE;
 	public static String DATA_LOGO_WEB_PATH_VALUE;
