@@ -1,16 +1,18 @@
 package com.wzq.tbmp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wzq.tbmp.config.Constant;
 import com.wzq.tbmp.controller.response.ResponseInfo;
-import com.wzq.tbmp.controller.response.UserResponse;
-import com.wzq.tbmp.pojo.ServerUser;
+import com.wzq.tbmp.controller.response.ResponseList;
+import com.wzq.tbmp.pojo.Project;
+import com.wzq.tbmp.service.http.IProjectService;
 import com.wzq.tbmp.service.http.IUserService;
 
 @Controller
@@ -20,6 +22,9 @@ public class ProjectController {
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private IProjectService projectService;
+	
 	/**
 	 * 项目摘要
 	 * @return
@@ -27,7 +32,11 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/summary",method=RequestMethod.POST)
 	public ResponseInfo summary() {
-		return null;
+		List<Project> list = projectService.queryAllProject();
+		if(list.isEmpty()){
+			return new ResponseInfo(Constant.SUCCESS, "列表为空");
+		}
+		return new ResponseList(Constant.SUCCESS, "获取成功", list);
 	}
 	
 	/**
